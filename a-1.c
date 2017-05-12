@@ -96,9 +96,9 @@ int main()
 		char *c = "hellownihao";
 		char *p = c;
 		char *q;
-		char *mark = q;
 
 		change_string(p, 3, 'c', &q);
+		char *mark = q;
 		printf("%s \n", mark);
 		for (; *q != '\0'; q++) {
 			printf("%c", *q);
