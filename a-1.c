@@ -59,6 +59,16 @@ static void change_arrc(char **p, int location, char *value)
 	p[location] = value;
 }
 
+static void change_arrii(int *p, int row, int col, int setx, int sety, int value)
+{
+	if ( (row-1) < setx || (col-1) < sety) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	p[setx*col + sety] = value;
+}
+
 int main()
 {
 //1. int
@@ -130,6 +140,20 @@ int main()
 	}
 
 // 7. int[][x]
+	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
+		int *p = a[0];
+		int size = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
+		int col = 3;
+		int i;
+
+		change_arrii(p, row, col, 4, 2, 88);
+		for (i = 0; i < size; i++) {
+			printf("%d ", *(p + i));
+		}
+		printf("\n");
+	}
 
 	return 0;
 }
