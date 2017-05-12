@@ -122,10 +122,11 @@ int main()
 		char *c[] = {"hello", "nihao", "home-coder", "one_face"};
 		char **p = c;
 
-		change_arrc(p, 2, "own");
 		for (; *p != NULL; p++) {
 			printf("%s ", *p);
 		}
+		
+//		change_arrc(p, 2, "own");
 		printf("\n");
 	}
 
