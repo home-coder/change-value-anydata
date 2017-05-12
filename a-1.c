@@ -50,6 +50,15 @@ static void change_string(char *src, int location, char value, char **dst)
 	(*dst)[location] = value;
 }
 
+static void change_arrc(char **p, int location, char *value)
+{
+	if (p[location] == NULL) {
+		perror("malloc memory failed\n");
+		exit(-1);
+	}
+	p[location] = value;
+}
+
 int main()
 {
 //1. int
@@ -111,7 +120,13 @@ int main()
 // 6. char *[]
 	{
 		char *c[] = {"hello", "nihao", "home-coder", "one_face"};
-		//change_arrc(p, 2, "own");
+		char **p = c;
+
+		change_arrc(p, 2, "own");
+		for (; *p != NULL; p++) {
+			printf("%s ", *p);
+		}
+		printf("\n");
 	}
 
 // 7. int[][x]
