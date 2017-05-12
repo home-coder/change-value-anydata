@@ -69,6 +69,10 @@ static void change_arrii(int *p, int row, int col, int setx, int sety, int value
 	p[setx*col + sety] = value;
 }
 
+static void change_arrii2(int (*p)[3], int row, int col, int setx, int sety, int value)
+{
+}
+
 int main()
 {
 //1. int
@@ -153,6 +157,18 @@ int main()
 			printf("%d ", *(p + i));
 		}
 		printf("\n");
+	}
+
+// 7-2. int[][x] <===> int(*p)[x]
+	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
+		typedef int (*p)[3];
+		int size = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
+		int col = 3;
+
+		p = &a;
+		change_arrii2(p, row, col, 2, 2, 88);
 	}
 
 	return 0;
