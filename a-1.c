@@ -48,4 +48,14 @@ int main()
 		}
 		printf("\n");
 	}
+
+// 4. char[]
+
+// 5. char *
+
+// 6. char *[]
+
+// 7. int[][x]
+
+	return 0;
 }
