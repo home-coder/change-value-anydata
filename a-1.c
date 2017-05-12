@@ -96,14 +96,16 @@ int main()
 		char *c = "hellownihao";
 		char *p = c;
 		char *q;
+		char *mark = q;
 
 		change_string(p, 3, 'c', &q);
+		printf("%s \n", mark);
 		for (; *q != '\0'; q++) {
 			printf("%c", *q);
 		}
 		printf("\n");
-		free(q);
-		q = NULL;
+		free(mark);//有可能是因为malloc分配的指针被修改以后，再传给free，导致了munmap错误。你检查一下动态分配的指针有没有中途被修改过
+		mark = NULL;
 	}
 // 6. char *[]
 
