@@ -106,8 +106,13 @@ int main()
 		printf("\n");
 		free(mark);//有可能是因为malloc分配的指针被修改以后，再传给free，导致了munmap错误。你检查一下动态分配的指针有没有中途被修改过
 		mark = NULL;
+		q = NULL;
 	}
 // 6. char *[]
+	{
+		char *c[] = {"hello", "nihao", "home-coder", "one_face"};
+		//change_arrc(p, 2, "own");
+	}
 
 // 7. int[][x]
 
