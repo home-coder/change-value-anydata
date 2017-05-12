@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static void change_int(int *a)
 {
@@ -28,6 +29,25 @@ static void change_char(char *p, int size, int location, char value)
 	}
 
 	p[location] = value;
+}
+
+static void change_string(char *src, int location, char value, char **dst)
+{
+	if (src[location] == '\0') {
+		perror("location is too large\n");
+		exit(-1);
+	}
+
+	int size = strlen(src) + 1;// last is '\0';
+	*dst = malloc(sizeof(char) * size);
+	if (*dst == NULL) {
+		perror("malloc memory failed\n");
+		exit(-1);
+	}
+
+	memset(*dst, 0x0, size);
+	memcpy(*dst, src, size);
+	(*dst)[location] = value;
 }
 
 int main()
@@ -72,7 +92,19 @@ int main()
 		printf("\n");
 	}
 // 5. char *
+	{
+		char *c = "hellownihao";
+		char *p = c;
+		char *q;
 
+		change_string(p, 3, 'c', &q);
+		for (; *q != '\0'; q++) {
+			printf("%c", *q);
+		}
+		printf("\n");
+		free(q);
+		q = NULL;
+	}
 // 6. char *[]
 
 // 7. int[][x]
