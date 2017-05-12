@@ -20,6 +20,16 @@ static void change_arri(int *p, int size, int location, int value)
 	p[location] = value;
 }
 
+static void change_char(char *p, int size, int location, char value)
+{
+	if (location > size) {
+		perror("location is too large\n");
+		exit(-1);
+	}
+
+	p[location] = value;
+}
+
 int main()
 {
 //1. int
@@ -50,7 +60,17 @@ int main()
 	}
 
 // 4. char[]
+	{
+		char c[] = {'a', 'c', 'r', 'd'};
+		int size = sizeof(c)/sizeof(c[0]);
+		char *p = c;
 
+		change_char(p, size, 2, 'm');
+		for (; p < &c[size]; p++) {
+			printf("%c ", *p);
+		}
+		printf("\n");
+	}
 // 5. char *
 
 // 6. char *[]
