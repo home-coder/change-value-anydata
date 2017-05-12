@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 static void change_int(int *a)
 {
@@ -7,7 +8,16 @@ static void change_int(int *a)
 
 static void change_ch(char *c)
 {
-	*c += '1';
+	*c += 1;
+}
+
+static void change_arri(int *p, int size, int location, int value)
+{
+	if ((location + 1) > size) {
+		perror("location is too large\n");
+		exit(-1);
+	}
+	p[location] = value;
 }
 
 int main()
@@ -25,4 +35,17 @@ int main()
 		printf("%c\n", c);
 	}
 
+// 3. int[]
+	{
+		int a[] = {1, 3, 4, 2};
+		int size = sizeof(a)/sizeof(a[0]);
+		int *p = a;
+
+		change_arri(p, size, 2, 0);
+		//这是一个c程序员常用的遍历方法
+		for (; p < &a[size]; p++) {
+			printf("%d ", *p);
+		}
+		printf("\n");
+	}
 }
