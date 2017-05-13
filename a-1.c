@@ -122,10 +122,11 @@ static void change_arri_row2(int *pa, int row, int col, int rowv, int *value)
 		perror("out stack\n");
 		exit(-1);
 	}
+	int i;
 
 	pa = pa + rowv*col;
-	for (; *value != '\0'; value++, pa++) {
-		memcpy(pa, value, sizeof(int));
+	for (i = 0; i < col; i++) {
+		pa[i] = value[i];
 	}
 }
 
