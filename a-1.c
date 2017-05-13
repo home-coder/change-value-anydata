@@ -91,6 +91,16 @@ static void change_arri_row(int (**p)[3], int row, int col, int (*pv)[3], int si
 	//lp = pv;
 }
 
+static void change_arri_row_memcpy(int (*pa)[3], int row, int col, int (*pv)[3], int sizev, int rowv)
+{
+	if ( (row-1) < rowv || col < sizev) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	memcpy(pa + rowv, pv, sizeof(*pv));
+}
+
 int main()
 {
 //1. int
@@ -215,6 +225,8 @@ int main()
 		int i, j;
 
 		change_arri_row(&pa, row, col, pv, sizev, 2);// 2--->row
+
+		change_arri_row_memcpy(pa, row, col, pv, sizev, 2);// 2--->row, 纯内存copy
 
 		for (i = 0; i < row; i++) {
 			for (j = 0; j < col; j++) {
