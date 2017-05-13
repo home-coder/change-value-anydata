@@ -53,10 +53,25 @@ static void change_string(char *src, int location, char value, char **dst)
 static void change_arrc(char **p, int location, char *value)
 {
 	if (p[location] == NULL) {
-		perror("malloc memory failed\n");
+		perror("out stack\n");
 		exit(-1);
 	}
 	p[location] = value;
+}
+
+static void change_arrcc(char **p, int location, int col, char value)
+{
+	if (p[location] == NULL) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	int size = strlen(p[location]) + 1;
+	char *pv = malloc(sizeof(char) * size);
+	memset(pv, 0x0, size);
+	memcpy(pv, p[location], size);
+	*(pv + col) = value;
+	p[location] = pv;
 }
 
 static void change_arrii(int *p, int row, int col, int setx, int sety, int value)
@@ -171,8 +186,19 @@ int main()
 		printf("\n");
 	}
 
-// 6-2. 替换数组第2个元素(from 0）里面的第二个字符为'i'
+// 6-2. 替换数组第2个元素(from 0）里面的第二个字符为'i', home-coder-->hoie-coder
 	{
+		char *c[] = {"hello", "nihao", "home-coder", "one_face", NULL};
+		char **p = c;
+
+		change_arrcc(p, 2, 2, 'i');
+		char *mark = p[2];
+		for (; *p != NULL; p++) {
+			printf("%s ", *p);
+		}
+		printf("\n");
+		free(mark);
+		mark = NULL;
 	}
 
 // 7. int[][x]
@@ -211,7 +237,7 @@ int main()
 		}
 		printf("\n");
 	}
-// 7-3. int[][x]替换一整行数组inta[2]
+// 7-3. 方法一 : int[][x]替换一整行数组inta[2]
 	{
 		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
 		int value[] = {33, 44, 88};
@@ -235,6 +261,8 @@ int main()
 		}
 		printf("\n");
 	}
+
+// 7-4. 方法二 : int[][x]替换一整行数组inta[2]， 直接使用一维的一个整形指针，而不是使用二维数组指针.
 
 	return 0;
 }
