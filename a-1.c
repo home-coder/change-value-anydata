@@ -86,7 +86,8 @@ static void change_arri_row(int (*p)[3], int row, int col, int (*pv)[3], int siz
 		exit(-1);
 	}
 
-	p + rowv = pv;
+	int (*lp)[3] = p + rowv;
+	lp = pv;
 }
 
 int main()
