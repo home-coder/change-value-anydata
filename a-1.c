@@ -71,6 +71,12 @@ static void change_arrii(int *p, int row, int col, int setx, int sety, int value
 
 static void change_arrii2(int (*p)[3], int row, int col, int setx, int sety, int value)
 {
+	if ( (row-1) < setx || (col-1) < sety) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	*(*(p + setx) + sety) = value;
 }
 
 int main()
@@ -156,7 +162,7 @@ int main()
 		int col = 3;
 		int i;
 
-		change_arrii(p, row, col, 4, 2, 88);
+		change_arrii(p, row, col, 2, 2, 88);
 		for (i = 0; i < size; i++) {
 			printf("%d ", *(p + i));
 		}
@@ -166,16 +172,29 @@ int main()
 // 7-2. int[][x] <===> int(*p)[x]
 	{
 		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
-		typedef int (*p)[3];
+		typedef int (*parri)[3];
 		int size = sizeof(a)/sizeof(a[0][0]);
 		int row = sizeof(a)/sizeof(a[0]);
 		int col = 3;
+		int i, j;
+		parri p;
 
-		p = &a;
+		p = a;
 		change_arrii2(p, row, col, 2, 2, 88);
+
+		for (i = 0; i < row; i++) {
+			for (j = 0; j < col; j++) {
+				printf("%d ", *(*(p + i) + j));
+			}
+		}
+		printf("\n");
 	}
 // 7-3. int[][x]替换一整行数组inta[2]
 	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
+		int value[] = (33, 44, 88);
+
+		change_arri_row();
 	}
 
 	return 0;
