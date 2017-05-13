@@ -86,7 +86,7 @@ static void change_arri_row(int (**p)[3], int row, int col, int (*pv)[3], int si
 		exit(-1);
 	}
 
-	(p)[rowv] = pv;
+	(p)[rowv] = pv;//p[rowv] = pv; == *(p + row), but i want (*p + row) .
 	//int (*lp)[3] = *p + rowv;
 	//lp = pv;
 }
