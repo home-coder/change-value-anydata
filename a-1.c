@@ -123,7 +123,7 @@ static void change_arri_row2(int *pa, int row, int col, int rowv, int *value)
 		exit(-1);
 	}
 
-	pa = pa + row*col;
+	pa = pa + rowv*col;
 	for (; *value != '\0'; value++, pa++) {
 		memcpy(pa, value, sizeof(int));
 	}
