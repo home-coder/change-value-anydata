@@ -79,15 +79,16 @@ static void change_arrii2(int (*p)[3], int row, int col, int setx, int sety, int
 	*(*(p + setx) + sety) = value;
 }
 
-static void change_arri_row(int (*p)[3], int row, int col, int (*pv)[3], int sizev, int rowv)
+static void change_arri_row(int (**p)[3], int row, int col, int (*pv)[3], int sizev, int rowv)
 {
 	if ( (row-1) < rowv || col < sizev) {
 		perror("out stack\n");
 		exit(-1);
 	}
 
-	int (*lp)[3] = p + rowv;
-	lp = pv;
+	(p)[rowv] = pv;
+	//int (*lp)[3] = *p + rowv;
+	//lp = pv;
 }
 
 int main()
@@ -213,7 +214,7 @@ int main()
 		int sizev = sizeof(value)/sizeof(value[0]);
 		int i, j;
 
-		change_arri_row(pa, row, col, pv, sizev, 2);// 2--->row
+		change_arri_row(&pa, row, col, pv, sizev, 2);// 2--->row
 
 		for (i = 0; i < row; i++) {
 			for (j = 0; j < col; j++) {
