@@ -79,6 +79,16 @@ static void change_arrii2(int (*p)[3], int row, int col, int setx, int sety, int
 	*(*(p + setx) + sety) = value;
 }
 
+static void change_arri_row(int (*p)[3], int row, int col, int (*pv)[3], int sizev, int rowv)
+{
+	if ( (row-1) < rowv || col < sizev) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	p + rowv = pv;
+}
+
 int main()
 {
 //1. int
@@ -192,9 +202,24 @@ int main()
 // 7-3. int[][x]替换一整行数组inta[2]
 	{
 		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {11, 22, 99}, {5, 3, 7}};
-		int value[] = (33, 44, 88);
+		int value[] = {33, 44, 88};
+		typedef int (*parri)[3];
 
-		change_arri_row();
+		parri pa = a, pv = &value;
+		int size = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
+		int col = 3;
+		int sizev = sizeof(value)/sizeof(value[0]);
+		int i, j;
+
+		change_arri_row(pa, row, col, pv, sizev, 2);// 2--->row
+
+		for (i = 0; i < row; i++) {
+			for (j = 0; j < col; j++) {
+				printf("%d ", *(*(pa + i) + j));
+			}
+		}
+		printf("\n");
 	}
 
 	return 0;
