@@ -116,6 +116,19 @@ static void change_arri_row_memcpy(int (*pa)[3], int row, int col, int (*pv)[3],
 	memcpy(pa + rowv, pv, sizeof(*pv));
 }
 
+static void change_arri_row2(int *pa, int row, int col, int rowv, int *value)
+{
+	if ( (row-1) < rowv ) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	pa = pa + row*col;
+	for (; *value != '\0'; value++, pa++) {
+		memcpy(pa, value, sizeof(int));
+	}
+}
+
 int main()
 {
 //1. int
@@ -263,6 +276,21 @@ int main()
 	}
 
 // 7-4. 方法二 : int[][x]替换一整行数组inta[2]， 直接使用一维的一个整形指针，而不是使用二维数组指针.
+	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {55, 66, 77}, {5, 3, 7}};
+		int value[] = {11, 22, 99};
+		int *pa = a[0], *pv = value;
+		int size = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
+		int col = 3;
+		int i;
+
+		change_arri_row2(pa, row, col, 2, value);
+		for (i = 0; i < size; i++) {
+			printf("%d ", *(pa + i));
+		}
+		printf("\n");
+	}
 
 	return 0;
 }
