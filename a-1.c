@@ -183,6 +183,19 @@ int main()
 		printf("\n");
 	}
 
+// 3.2 int [5]
+	{
+		int a[5] = {1, 2, 3};
+		int size = sizeof(a)/sizeof(a[0]);
+		int *p = a;
+
+		printf("请注意字节数亩是 5\n");
+		for (; p < &a[size]; p++) {
+			printf("%d ", *p);
+		}
+		printf("\n");
+	}
+
 // 4. char[]
 	{
 		char c[] = {'a', 'c', 'r', 'd'};
@@ -337,7 +350,7 @@ int main()
 
 // 8-1. 如果二维数组内部一维数组的长度不一致，如何处理
 	{
-		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {55, 66}, {5, 3, 7}};
+		int a[][3] = {{0, 2, 4}, {3, 4}, {55, 66}, {5, 3, 7}};
 		int value[] = {99, 88, 11, 22};
 		int *pa = a[0], *pv = value;
 		int row = sizeof(a)/sizeof(a[0]);
