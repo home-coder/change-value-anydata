@@ -151,7 +151,7 @@ static void change_unsure_arri_row(int *pa, int row, int col, int rowv, int *pv,
 	int src_size = col * sizeof(pa[0]);
 	int real_size = src_size > sizev ? src_size : sizev;
 
-	memcpy(pa + row*col, pv, real_size);
+	memcpy(pa + rowv*col, pv, real_size);
 }
 
 int main()
@@ -340,7 +340,7 @@ int main()
 		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {55, 66}, {5, 3, 7}};
 		int value[] = {99, 88, 11, 22};
 		int *pa = a[0], *pv = value;
-		int row = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
 		int col = 3;
 		int sizev = sizeof(pv);
 		
