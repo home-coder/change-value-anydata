@@ -130,6 +130,17 @@ static void change_arri_row2(int *pa, int row, int col, int rowv, int *value)
 	}
 }
 
+static void change_arri_row3(int *pa, int row, int col, int rowv, int *pv, int sizev)
+{
+	if ( (row-1) < rowv ) {
+		perror("out stack\n");
+		exit(-1);
+	}
+
+	int *pm = pa + rowv*col;
+	memcpy(pm, pv, sizev);
+}
+
 int main()
 {
 //1. int
@@ -292,6 +303,26 @@ int main()
 		}
 		printf("\n");
 	}
+
+// 7-5. 方法三 :对7-4的优化，不再使用赋值语句，直接在调用函数中使用memcpy来赋值数据内存
+	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {55, 66, 77}, {5, 3, 7}};
+		int value[] = {33, 88, 11};
+		int *pa = a[0], *pv = value;
+		int len = sizeof(a)/sizeof(a[0][0]);
+		int row = sizeof(a)/sizeof(a[0]);
+		int col = 3;
+		int sizev = sizeof(value);
+
+		change_arri_row3(pa, row, col, 2, pv, sizev);
+//		change_arri_row2(pa, row, col, 2, value);
+		for (; pa < a[row]; pa++) {
+			printf("%d ", *pa);
+		}
+		printf("\n");
+	}
+
+// 8-1. 如果二维数组内部一维数组的长度不一致，如何处理
 
 	return 0;
 }
