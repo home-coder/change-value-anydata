@@ -141,6 +141,19 @@ static void change_arri_row3(int *pa, int row, int col, int rowv, int *pv, int s
 	memcpy(pm, pv, sizev);
 }
 
+static void change_unsure_arri_row(int *pa, int row, int col, int rowv, int *pv, int sizev)
+{
+	if ( (row-1) < rowv ) {
+		perror("out stack\n");
+		exit(-1);
+	}
+	
+	int src_size = col * sizeof(pa[0]);
+	int real_size = src_size > sizev ? src_size : sizev;
+
+	memcpy(pa + row*col, pv, real_size);
+}
+
 int main()
 {
 //1. int
@@ -323,6 +336,20 @@ int main()
 	}
 
 // 8-1. 如果二维数组内部一维数组的长度不一致，如何处理
+	{
+		int a[][3] = {{0, 2, 4}, {3, 4, 5}, {55, 66}, {5, 3, 7}};
+		int value[] = {99, 88, 11, 22};
+		int *pa = a[0], *pv = value;
+		int row = sizeof(a)/sizeof(a[0][0]);
+		int col = 3;
+		int sizev = sizeof(pv);
+		
+		change_unsure_arri_row(pa, row, col, 2, pv, sizev);
+		for (; pa < a[row]; pa++) {
+			printf("%d ", *pa);
+		}
+		printf("\n");
+	}
 
 	return 0;
 }
